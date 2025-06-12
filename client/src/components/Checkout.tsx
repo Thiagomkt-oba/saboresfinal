@@ -19,6 +19,7 @@ interface Address {
 
 interface FormData {
   nome: string;
+  cpf: string;
   telefone: string;
   email: string;
   endereco: Address;
@@ -37,6 +38,7 @@ const Checkout: React.FC<CheckoutProps> = ({ onBack }) => {
   const { items, totalPrice, totalOriginalPrice } = useCart();
   const [formData, setFormData] = useState<FormData>({
     nome: '',
+    cpf: '',
     telefone: '',
     email: '',
     endereco: {
@@ -62,6 +64,36 @@ const Checkout: React.FC<CheckoutProps> = ({ onBack }) => {
   const validateCEP = (cep: string): boolean => {
     const cepRegex = /^[0-9]{5}-?[0-9]{3}$/;
     return cepRegex.test(cep);
+  };
+
+  const validateCPF = (cpf: string): boolean => {
+    // Remove non-numeric characters
+    const cleanCPF = cpf.replace(/\D/g, '');
+    
+    // Check if has 11 digits
+    if (cleanCPF.length !== 11) return false;
+    
+    // Check if all digits are the same
+    if (/^(\d)\1{10}$/.test(cleanCPF)) return false;
+    
+    // Validate check digits
+    let sum = 0;
+    for (let i = 0; i < 9; i++) {
+      sum += parseInt(cleanCPF.charAt(i)) * (10 - i);
+    }
+    let checkDigit1 = 11 - (sum % 11);
+    if (checkDigit1 === 10 || checkDigit1 === 11) checkDigit1 = 0;
+    
+    if (checkDigit1 !== parseInt(cleanCPF.charAt(9))) return false;
+    
+    sum = 0;
+    for (let i = 0; i < 10; i++) {
+      sum += parseInt(cleanCPF.charAt(i)) * (11 - i);
+    }
+    let checkDigit2 = 11 - (sum % 11);
+    if (checkDigit2 === 10 || checkDigit2 === 11) checkDigit2 = 0;
+    
+    return checkDigit2 === parseInt(cleanCPF.charAt(10));
   };
 
   const fetchAddressByCEP = async (cep: string) => {
@@ -117,6 +149,12 @@ const Checkout: React.FC<CheckoutProps> = ({ onBack }) => {
       newErrors.nome = 'Nome completo é obrigatório';
     }
 
+    if (!formData.cpf.replace(/\D/g, '')) {
+      newErrors.cpf = 'CPF é obrigatório';
+    } else if (!validateCPF(formData.cpf)) {
+      newErrors.cpf = 'CPF inválido';
+    }
+
     if (!formData.telefone.replace(/\D/g, '')) {
       newErrors.telefone = 'Telefone é obrigatório';
     }
@@ -151,7 +189,7 @@ const Checkout: React.FC<CheckoutProps> = ({ onBack }) => {
     try {
       const requestBody = {
         nome: formData.nome,
-        cpf: '000.000.000-00', // CPF fictício para teste
+        cpf: formData.cpf,
         email: formData.email,
         telefone: formData.telefone,
         cep: formData.endereco.cep,
@@ -278,6 +316,22 @@ const Checkout: React.FC<CheckoutProps> = ({ onBack }) => {
                           placeholder="Digite seu nome completo"
                         />
                         {errors.nome && <p className="text-red-500 text-sm mt-1">{errors.nome}</p>}
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                          CPF *
+                        </label>
+                        <InputMask
+                          mask="999.999.999-99"
+                          value={formData.cpf}
+                          onChange={(e) => setFormData(prev => ({ ...prev, cpf: e.target.value }))}
+                          className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-[#9B6647] focus:border-transparent ${
+                            errors.cpf ? 'border-red-500' : 'border-gray-300'
+                          }`}
+                          placeholder="000.000.000-00"
+                        />
+                        {errors.cpf && <p className="text-red-500 text-sm mt-1">{errors.cpf}</p>}
                       </div>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
