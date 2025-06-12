@@ -1,0 +1,69 @@
+Jun 11, 10:55:35 PM: cb64f7bb INFO   Function called with method: POST
+Jun 11, 10:55:35 PM: cb64f7bb INFO   Function called with headers: {
+  "accept": "*/*,image/webp",
+  "accept-encoding": "br",
+  "accept-language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+  "cdn-loop": "netlify",
+  "content-length": "392",
+  "content-type": "application/json",
+  "host": "saboresdeminasbrasil.netlify.app",
+  "netlify-invocation-source": "client",
+  "origin": "https://saboresdeminasbrasil.netlify.app",
+  "priority": "u=1, i",
+  "referer": "https://saboresdeminasbrasil.netlify.app/",
+  "sec-fetch-dest": "empty",
+  "sec-fetch-mode": "cors",
+  "sec-fetch-site": "same-origin",
+  "user-agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+  "x-country": "BR",
+  "x-forwarded-for": "177.137.124.221, 18.230.127.60",
+  "x-forwarded-proto": "https",
+  "x-language": "pt-BR",
+  "x-nf-account-id": "67f349ce756bc201e8762961",
+  "x-nf-account-tier": "account_type_free",
+  "x-nf-client-connection-ip": "177.137.124.221",
+  "x-nf-deploy-context": "production",
+  "x-nf-deploy-id": "684a3306157c34654afd0231",
+  "x-nf-deploy-published": "1",
+  "x-nf-geo": "eyJjaXR5IjoiTHVpcyBFZHVhcmRvIE1hZ2FsaMOjZXMiLCJjb3VudHJ5Ijp7ImNvZGUiOiJCUiIsIm5hbWUiOiJCcmF6aWwifSwicG9zdGFsX2NvZGUiOiI0Nzg1MCIsInN1YmRpdmlzaW9uIjp7ImNvZGUiOiJCQSIsIm5hbWUiOiJCYWhpYSJ9LCJ0aW1lem9uZSI6IkFtZXJpY2EvQmFoaWEiLCJsYXRpdHVkZSI6LTEyLjA5MzMsImxvbmdpdHVkZSI6LTQ1Ljc4OTN9",
+  "x-nf-request-id": "01JXGXK0VRQBS71A67FQ9DT1N2",
+  "x-nf-site-id": "28e4303b-f9c8-4a55-bb91-d03cfd9591d2"
+}
+Jun 11, 10:55:35 PM: cb64f7bb INFO   Received payment request: {
+  nome: 'carlos asajhj',
+  email: 'carlosante@gmail.com',
+  cpf: '000...',
+  telefone: '(77) 79844-1145',
+  amount: 69.9
+}
+Jun 11, 10:55:35 PM: cb64f7bb INFO   Cleaned data: { cleanPhone: 11, cleanCpf: 11 }
+Jun 11, 10:55:35 PM: cb64f7bb INFO   Sending request to For4Payments: {
+  "name": "carlos asajhj",
+  "email": "carlosante@gmail.com",
+  "cpf": "***HIDDEN***",
+  "phone": "77798441145",
+  "paymentMethod": "PIX",
+  "amount": 6990,
+  "traceable": true,
+  "items": [
+    {
+      "unitPrice": 6990,
+      "title": "Conjunto 3 Manteigas Sabores de Minas",
+      "quantity": 1,
+      "tangible": false
+    }
+  ],
+  "cep": "47850-162",
+  "street": "Avenida 1",
+  "number": "5563",
+  "district": "Mimoso do Oeste",
+  "city": "Luís Eduardo Magalhães",
+  "state": "BA",
+  "complement": "(Mimoso III)",
+  "externalId": "order_1749693335031",
+  "postbackUrl": "https://saboresdeminasbrasil.netlify.app/.netlify/functions/webhook-for4payments"
+}
+Jun 11, 10:55:37 PM: cb64f7bb INFO   For4Payments response status: 500
+Jun 11, 10:55:37 PM: cb64f7bb INFO   For4Payments response: {"message":"Erro ao processar pagamento.","code":"INTERNAL_SERVER_ERROR"}...
+Jun 11, 10:55:37 PM: cb64f7bb ERROR  For4Payments API Error: 500
+Jun 11, 10:55:37 PM: cb64f7bb Duration: 2254.75 ms	Memory Usage: 93 MB
